@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Zelpy Feedback</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .star {
+      cursor: pointer;
+      font-size: 1.8rem;
+      color: #cbd5e0; /* Gray-300 */
+    }
+    .star.selected {
+      color: #3b82f6; /* Blue-500 */
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-white to-blue-50 min-h-screen font-sans">
+
+  <!-- Header -->
+  @include('includes.header')
+     @include('pages.popup')
+
+
+  <!-- Layout Wrapper -->
+  <div class="flex flex-col lg:flex-row min-h-screen">
+
+    <!-- Sidebar -->
+    <aside class="hidden lg:block lg:w-64 bg-white shadow">
+    
+  @include('dashboard.sidebardash')
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-4 sm:p-6 lg:p-10">
+      <div class="bg-white rounded-2xl shadow-xl px-6 py-8 sm:p-8 max-w-3xl mx-auto space-y-6">
+        <h2 class="text-blue-900 font-bold text-lg sm:text-xl uppercase text-center sm:text-left">What do you think of Ulixai?</h2>
+
+        <!-- Step 1: Star Rating -->
+        <div>
+          <p class="text-sm font-semibold mb-2 flex items-center gap-2">
+            <span class="bg-blue-500 text-white rounded-full px-2">1</span> Give a rating out of 5
+          </p>
+          <div class="flex gap-2 text-2xl justify-center sm:justify-start" id="zelpyRating">
+            <span class="star" data-rating="1">★</span>
+            <span class="star" data-rating="2">★</span>
+            <span class="star" data-rating="3">★</span>
+            <span class="star" data-rating="4">★</span>
+            <span class="star" data-rating="5">★</span>
+          </div>
+        </div>
+
+        <!-- Step 2: Comment -->
+        <div>
+          <p class="text-sm font-semibold mb-2 flex items-center gap-2">
+            <span class="bg-blue-500 text-white rounded-full px-2">2</span> Leave a comment on Ulixai
+          </p>
+          <textarea rows="4" class="w-full border border-blue-300 rounded-xl p-4 text-sm placeholder-gray-400 resize-none" placeholder="Leave the comment here"></textarea>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-4">
+          <a href="/reviewoptions" class="text-sm font-semibold text-blue-600 underline">But</a>
+          <a href="#" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-full font-semibold text-sm transition">
+            I CONFIRM
+          </a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Star Rating Script -->
+  <script>
+    const stars = document.querySelectorAll('.star');
+    stars.forEach(star => {
+      star.addEventListener('click', () => {
+        const rating = parseInt(star.getAttribute('data-rating'));
+        stars.forEach(s => {
+          s.classList.toggle('selected', parseInt(s.getAttribute('data-rating')) <= rating);
+        });
+      });
+    });
+  </script>
+@include('dashboard.bottomnavbar')
+
+</body>
+</html>
